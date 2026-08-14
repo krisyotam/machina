@@ -18,7 +18,7 @@ usage: machina [flags] <command> [args]
 
 commands:
   status             what is present, what is missing
-  install [step]     model + dirs + bin  (or one of those words)
+  install [step]     model + dirs + bin + skills  (or one of those words)
   disk               filesystems, sizes, percent full
   mem                memory and swap
   load               load averages and cpu count

@@ -9,7 +9,7 @@ GOFLAGS   ?= -trimpath
 LDFLAGS   ?= -s -w -X main.version=$(VERSION)
 
 CMD = ./cmd/machina
-SRC = $(wildcard cmd/machina/*.go) $(wildcard scaffold/*.go)
+SRC = $(wildcard cmd/machina/*.go) $(wildcard scaffold/*.go) $(wildcard skills/*.go) $(wildcard skills/*/SKILL.md)
 
 all: $(BIN)
 

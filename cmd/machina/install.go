@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/krisyotam/machina/skills"
 )
 
 func install(w io.Writer, opt options, step string) error {
@@ -17,15 +19,20 @@ func install(w io.Writer, opt options, step string) error {
 		if err := installDirs(w, opt); err != nil {
 			return err
 		}
-		return installBin(w, opt)
+		if err := installBin(w, opt); err != nil {
+			return err
+		}
+		return installSkills(w, opt)
 	case "model":
 		return installModel(w, opt)
 	case "dirs":
 		return installDirs(w, opt)
 	case "bin":
 		return installBin(w, opt)
+	case "skills":
+		return installSkills(w, opt)
 	default:
-		return fmt.Errorf("unknown install step %q (want model, dirs, bin)", step)
+		return fmt.Errorf("unknown install step %q (want model, dirs, bin, skills)", step)
 	}
 }
 
@@ -92,6 +99,24 @@ func installBin(w io.Writer, opt options) error {
 	return nil
 }
 
+func installSkills(w io.Writer, opt options) error {
+	for _, dest := range skillDests {
+		root := filepath.Join(opt.home, dest)
+		for _, name := range skills.Names {
+			body, err := readSkill(name)
+			if err != nil {
+				return fmt.Errorf("skill %s: %w", name, err)
+			}
+			path := filepath.Join(root, name, "SKILL.md")
+			// Skills are ours; rewrite on install like the machine index.
+			if err := writeFile(w, opt, path, body, 0o644, true); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
 func status(w io.Writer, opt options) error {
 	type row struct{ k, v, extra string }
 	var rows []row
@@ -120,6 +145,16 @@ func status(w io.Writer, opt options) error {
 	} else {
 		rows = append(rows, row{"bin", "missing", tilde(opt.home, bin)})
 	}
+	have, want := 0, 0
+	for _, dest := range skillDests {
+		for _, name := range skills.Names {
+			want++
+			if exists(filepath.Join(opt.home, dest, name, "SKILL.md")) {
+				have++
+			}
+		}
+	}
+	rows = append(rows, row{"skills", fmt.Sprintf("%d/%d", have, want), "CLI copies"})
 
 	for _, d := range workDirs {
 		dir := filepath.Join(opt.home, d.Name)

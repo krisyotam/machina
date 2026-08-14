@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/krisyotam/machina/scaffold"
+	"github.com/krisyotam/machina/skills"
 )
 
 func xdg(env, home, rel string) string {
@@ -59,8 +60,25 @@ var agentFiles = []string{
 	".hermes/SOUL.md",
 }
 
+// skillDests are per-CLI skill directories under $HOME. Install
+// writes skills.Names into each one so every agent finds the
+// operator skill without a project checkout.
+var skillDests = []string{
+	".claude/skills",
+	".grok/skills",
+	".codex/skills",
+	".gemini/skills",
+	".config/opencode/skills",
+	".hermes/skills",
+	".agents/skills",
+}
+
 func readScaffold(name string) ([]byte, error) {
 	return scaffold.FS.ReadFile(name)
+}
+
+func readSkill(name string) ([]byte, error) {
+	return skills.FS.ReadFile(name + "/SKILL.md")
 }
 
 func tilde(home, path string) string {

@@ -26,6 +26,9 @@ pieces. `machina install` writes it onto `$HOME`.
 3. **Check tools.** Installs `machina` into `~/.local/bin` and links
    `disk`, `mem`, `load`, and `home-map` to it. Agents run those instead
    of parsing `df` or `free`.
+4. **Skills.** Copies `skills/machina` and `skills/machina-install`
+   into each agent CLI's skill directory so a model that just landed
+   knows how to run the box.
 
 The machine index lives at `~/.config/machina/README.md`. Each agent CLI
 gets a second one-liner pointing there, next to the model line.
@@ -34,10 +37,11 @@ gets a second one-liner pointing there, next to the model line.
 
 ```
 machina status            what is present, what is missing
-machina install           model + dirs + tools
+machina install           model + dirs + tools + skills
 machina install model     just the model standard
 machina install dirs      just work dirs and AGENTS.md
 machina install bin       just ~/.local/bin
+machina install skills    just the operator / install skills
 machina disk              filesystems, sizes, percent full
 machina mem               memory and swap
 machina load              load averages and cpu count
@@ -82,6 +86,7 @@ are skipped. Protected directories (`src`, `dl`, `edu`, `lit`, `music`,
 - [docs/layout.md](docs/layout.md): what each directory is for
 - [docs/model.md](docs/model.md): how the model standard is applied
 - [docs/agents.md](docs/agents.md): the AGENTS.md convention
+- [docs/skills.md](docs/skills.md): the operator and install skills
 - [docs/scripts.md](docs/scripts.md): the check tools
 - [docs/guards.md](docs/guards.md): hard blocks agents must not cross
 - [docs/install.md](docs/install.md): install, dry-run, overwrite rules

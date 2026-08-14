@@ -26,6 +26,14 @@ are not overwritten unless `-f` is set (and even then, `hosts.md` and
       mem  -> machina           memory
       load -> machina           load averages
       home-map -> machina       top-level home map
+  .claude/skills/machina/       operator skill (copied)
+  .claude/skills/machina-install/
+  .grok/skills/                 same two skills
+  .codex/skills/
+  .gemini/skills/
+  .config/opencode/skills/
+  .hermes/skills/
+  .agents/skills/
   src/
     AGENTS.md                   versioned projects, one repo each
   research/

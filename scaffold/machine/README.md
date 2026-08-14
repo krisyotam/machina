@@ -49,6 +49,12 @@ home-map    the table above, plus whether AGENTS.md is present
 - Do not create a new top-level name under `$HOME`. The names above
   are the set.
 
+## Skills
+
+`machina` (operate the box) and `machina-install` (bootstrap or
+repair) live in each CLI's skill directory after install. The
+source is `~/src/machina/skills/`.
+
 ## Sibling standards
 
 - `~/.config/model/`: facts every agent reads on launch

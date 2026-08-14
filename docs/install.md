@@ -19,14 +19,16 @@ On a Kris machine, do not run `make` unless he said "build".
 
 ## Order
 
-`machina install` with no extra word does three steps:
+`machina install` with no extra word does four steps:
 
 1. `model`: clone/apply [krisyotam/model](https://github.com/krisyotam/model)
 2. `dirs`: create work directories and write missing `AGENTS.md`
 3. `bin`: install `machina` into `~/.local/bin` and link the short names
+4. `skills`: copy the operator and install skills into each CLI
 
 Each step can be run alone: `machina install model`,
-`machina install dirs`, `machina install bin`.
+`machina install dirs`, `machina install bin`,
+`machina install skills`.
 
 ## Flags
 
@@ -51,6 +53,7 @@ Each step can be run alone: `machina install model`,
 | `~/.local/state/model/log.csv` | copied header | left alone |
 | `~/.local/bin/machina` | installed | replaced with the current binary when `install bin` can see itself |
 | `~/.local/bin/disk` (and friends) | symlinked to `machina` | replaced if they already point at machina; left alone otherwise |
+| `~/.claude/skills/machina/SKILL.md` (and the other CLI copies) | written | rewritten (these files are ours) |
 
 `install bin` copies the running executable when it can. If you are
 on `go run`, it prints that you need a built binary for the `bin`
@@ -72,7 +75,8 @@ program against a disposable tree.
    you have to).
 2. `go run ./cmd/machina install`
 3. Edit `~/.config/model/hosts.md` and `~/.config/model/models.env`.
-4. Confirm `disk` and `home-map` print something sane.
+4. Confirm `disk` and `home-map` print something sane, and that
+   `~/.claude/skills/machina/SKILL.md` exists.
 
 The work directories will be empty except for `AGENTS.md`. That is
 the point: the names exist before an agent has to invent them.

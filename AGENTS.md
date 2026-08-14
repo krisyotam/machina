@@ -43,9 +43,13 @@ scaffold/
 cmd/machina/
   main.go               flags and dispatch
   paths.go              XDG paths, work dir table, classify
-  install.go            write dirs, AGENTS.md, bin links
+  install.go            write dirs, AGENTS.md, bin links, skills
   model.go              clone and apply krisyotam/model
   report.go             disk, mem, load, home
+skills/
+  fs.go                 go:embed of the SKILL.md files
+  machina/SKILL.md      operator skill
+  machina-install/SKILL.md
 ```
 
 ## Adding a work directory
@@ -54,6 +58,14 @@ cmd/machina/
 2. Add the row to TREE.md and docs/layout.md.
 3. Add a `workDir` entry in `cmd/machina/paths.go`.
 4. Say whether it is protected (never a wipe target).
+
+## Adding or editing a skill
+
+Edit `skills/<name>/SKILL.md` only. The `.claude/skills` and
+`.grok/skills` paths in this repo are symlinks. Add the name to
+`skills.Names` and the embed line in `skills/fs.go` together.
+Point at `~/.config/machina/README.md` and the directory
+`AGENTS.md` files; do not paste those tables into the skill.
 
 ## Adding a check command
 

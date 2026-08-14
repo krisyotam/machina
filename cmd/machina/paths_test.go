@@ -72,6 +72,11 @@ func TestEmbedPaths(t *testing.T) {
 			t.Errorf("%s: %v", d.Embed, err)
 		}
 	}
+	for _, name := range []string{"machina", "machina-install"} {
+		if _, err := readSkill(name); err != nil {
+			t.Errorf("skill %s: %v", name, err)
+		}
+	}
 }
 
 func TestFmtBytes(t *testing.T) {

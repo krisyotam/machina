@@ -46,6 +46,10 @@ Machine layout and check tools live in `~/.config/machina/`. Read `~/.config/mac
 If the file already contains `~/.config/machina/`, the line is not
 added again.
 
+Skills (`skills/machina`, `skills/machina-install`) are the
+procedure a model loads when it has not opened this repo. See
+[skills.md](skills.md).
+
 ## Editing a live AGENTS.md
 
 The copies under `$HOME` are the live files. The copies under
