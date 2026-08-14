@@ -1,0 +1,4 @@
+/machina
+/cmd/machina/machina
+*.exe
+*.test
